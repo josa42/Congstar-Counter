@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 @interface DataFetcher : NSObject {
-    
+    sqlite3 *mySqliteDB;
 }
 
 + (id)instance;
 - (void) fetch;
+- (void) initDatabase;
+
+@property (nonatomic, strong) NSString *databasePath;
 
 @end

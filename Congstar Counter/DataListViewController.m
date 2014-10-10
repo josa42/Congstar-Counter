@@ -7,6 +7,7 @@
 //
 
 #import "DataListViewController.h"
+#import "Data.h"
 
 @interface DataListViewController ()
 
@@ -19,7 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    recipes = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
+    
+    
+    
+    
+    
+    recipes = [Data findAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +48,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%f / %f",
+        ((Data *)[recipes objectAtIndex:indexPath.row]).used,
+        ((Data *)[recipes objectAtIndex:indexPath.row]).total
+    ];
     return cell;
 }
 

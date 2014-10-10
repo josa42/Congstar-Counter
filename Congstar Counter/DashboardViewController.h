@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PieChartView.h"
 
-@interface DashboardViewController : UIViewController
+@interface DashboardViewController : UIViewController {
+    
+    IBOutlet PieChartView* pieChartView;
+}
+
+
 
 
 @end
