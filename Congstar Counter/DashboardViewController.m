@@ -9,6 +9,7 @@
 #import "DashboardViewController.h"
 #import "Data.h"
 #import "DataFetcher.h"
+#import "Formatter.h"
 
 @interface DashboardViewController ()
 
@@ -28,10 +29,15 @@
 }
 
 
-- (IBAction)reload:(id)sender {
-    NSLog(@"Reload");
-    [[DataFetcher instance] fetch];
+- (void)viewDidAppear:(BOOL)animated {
     [self update];
+}
+
+
+- (IBAction)reload:(id)sender {
+    [[DataFetcher instance] fetchWithBlock: ^{
+        [self update];
+    }];
 }
 
 
@@ -41,29 +47,19 @@
 
     if (!data) return;
     
-    
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setMaximumFractionDigits:1];
-    [formatter setRoundingMode: NSNumberFormatterRoundDown];
-    ;
+    Formatter *formatter = [Formatter instance];
     
     float progress = progress = data.used / data.total;
-    lastUpdateLabel.text = [NSString stringWithFormat:@"Last update: %@", data.time];
+    lastUpdateLabel.text = [NSString stringWithFormat:@"Last update: %@", [formatter date:data.time]];
     statusLabel.text = [NSString stringWithFormat:@"%@ MB / %@ MB",
-                        [formatter stringFromNumber:[NSNumber numberWithFloat:data.used]],
-                        [formatter stringFromNumber:[NSNumber numberWithFloat:data.total]]];
-
-    NSLog(@"progress: %f / %f = %f", (float)data.used, (float)data.total, (data.used / data.total));
+                        [formatter megabytes:data.used],
+                        [formatter megabytes:data.total]];
 
     [pieChartView clearItems];
-
     [pieChartView addItemValue:1 - progress withColor:PieChartItemColorMake(1.0, 1.0, 1.0, 0.0)];
     [pieChartView addItemValue:progress withColor:PieChartItemColorMake(0.0, 0.0, 0.0, 0.6)];
-
     [pieChartView setHidden:NO];
     [pieChartView setNeedsDisplay];
-    
-
 }
 
 - (void)didReceiveMemoryWarning {

@@ -26,5 +26,6 @@
 + (NSArray *) findAll;
 + (Data *) findLast;
 - (BOOL) save;
+- (BOOL) remove;
 
 @end

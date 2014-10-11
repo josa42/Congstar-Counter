@@ -9,6 +9,7 @@
 #import "DataListViewController.h"
 #import "Data.h"
 #import "DataFetcher.h"
+#import "Formatter.h"
 
 
 @interface DataListViewController ()
@@ -17,23 +18,27 @@
 
 @implementation DataListViewController
 {
-    NSArray *recipes;
+    NSArray *dataList;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    
-    
-    
-    recipes = [Data findAll];
+    dataList = [Data findAll];
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    dataList = [Data findAll];
+    [tableView reloadData];
+}
+
 - (IBAction)reload:(id)sender {
-    NSLog(@"Reload");
-    [[DataFetcher instance] fetch];
+    [[DataFetcher instance] fetchWithBlock: ^{
+        [[DataFetcher instance] fetch];
+        dataList = [Data findAll];
+        [tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,24 +48,47 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [recipes count];
+    return [dataList count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *simpleTableIdentifier = @"SimpleTableCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    Formatter *formatter = [Formatter instance];
+    
+    static NSString *simpleTableIdentifier = @"DataTableCell";
+    
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%f / %f",
-        ((Data *)[recipes objectAtIndex:indexPath.row]).used,
-        ((Data *)[recipes objectAtIndex:indexPath.row]).total
-    ];
+    Data *data = ((Data *)[dataList objectAtIndex:indexPath.row]);
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ MB / %@ MB",
+                           [formatter megabytes:data.used],
+                           [formatter megabytes:data.total]];
+    cell.detailTextLabel.text = [formatter  date:data.time];
     return cell;
+}
+
+
+- (BOOL)tableView:(UITableView *)_tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Data *data = (Data*)[dataList objectAtIndex:indexPath.row];
+        [data remove];
+        dataList = [Data findAll];
+        [tableView reloadData];
+        
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
 }
 
 @end

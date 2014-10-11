@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DataListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface DataListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    IBOutlet UITableView *tableView;
+}
 
 - (IBAction)reload:(id)sender;
 

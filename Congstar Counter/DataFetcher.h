@@ -15,6 +15,7 @@
 
 + (id)instance;
 - (void) fetch;
+- (void) fetchWithBlock:(void (^)(void))callback;
 - (void) initDatabase;
 
 @property (nonatomic, strong) NSString *databasePath;

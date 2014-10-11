@@ -19,6 +19,8 @@
 		808A352019E7340400BE3950 /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 808A351E19E7340400BE3950 /* readme.md */; };
 		808A352119E7340400BE3950 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808A351F19E7340400BE3950 /* TemplateIcon2x.png */; };
 		808A352619E7380D00BE3950 /* DataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 808A352519E7380D00BE3950 /* DataFetcher.m */; };
+		80EE387819E956E700892657 /* Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 80EE387719E956E700892657 /* Formatter.m */; };
+		80EE387F19E95D2500892657 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 80EE387D19E95D2500892657 /* GTMNSString+HTML.m */; };
 		80F0A7D319E87BA100EBF39B /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F0A7D219E87BA100EBF39B /* Data.m */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,10 @@
 		808A351F19E7340400BE3950 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		808A352419E7380D00BE3950 /* DataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetcher.h; sourceTree = "<group>"; };
 		808A352519E7380D00BE3950 /* DataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetcher.m; sourceTree = "<group>"; };
+		80EE387619E956E700892657 /* Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Formatter.h; sourceTree = "<group>"; };
+		80EE387719E956E700892657 /* Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Formatter.m; sourceTree = "<group>"; };
+		80EE387A19E95CF300892657 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		80EE387D19E95D2500892657 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		80F0A7D119E87BA100EBF39B /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		80F0A7D219E87BA100EBF39B /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		C4A307028031D49D5EE76B0A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +96,7 @@
 		802A89A019E72EED001D5CBE = {
 			isa = PBXGroup;
 			children = (
+				807BA83E19E98DDE00422419 /* Assets */,
 				808A351E19E7340400BE3950 /* readme.md */,
 				808A351F19E7340400BE3950 /* TemplateIcon2x.png */,
 				802A89AB19E72EED001D5CBE /* Congstar Counter */,
@@ -112,6 +119,7 @@
 		802A89AB19E72EED001D5CBE /* Congstar Counter */ = {
 			isa = PBXGroup;
 			children = (
+				80EE387919E95CA600892657 /* Categories */,
 				80F0A7D019E87B8900EBF39B /* Models */,
 				808A352319E737DA00BE3950 /* Helper */,
 				808A352219E7379500BE3950 /* Views */,
@@ -151,6 +159,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		807BA83E19E98DDE00422419 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		808A352219E7379500BE3950 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,8 +182,19 @@
 			children = (
 				808A352419E7380D00BE3950 /* DataFetcher.h */,
 				808A352519E7380D00BE3950 /* DataFetcher.m */,
+				80EE387619E956E700892657 /* Formatter.h */,
+				80EE387719E956E700892657 /* Formatter.m */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		80EE387919E95CA600892657 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				80EE387A19E95CF300892657 /* GTMNSString+HTML.h */,
+				80EE387D19E95D2500892657 /* GTMNSString+HTML.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		80F0A7D019E87B8900EBF39B /* Models */ = {
@@ -239,6 +265,7 @@
 				TargetAttributes = {
 					802A89A819E72EED001D5CBE = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 7T395S4T2B;
 					};
 					802A89C419E72EED001D5CBE = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -326,6 +353,8 @@
 			files = (
 				802A89B819E72EED001D5CBE /* DataListViewController.m in Sources */,
 				802A89B219E72EED001D5CBE /* AppDelegate.m in Sources */,
+				80EE387F19E95D2500892657 /* GTMNSString+HTML.m in Sources */,
+				80EE387819E956E700892657 /* Formatter.m in Sources */,
 				802A89B519E72EED001D5CBE /* DashboardViewController.m in Sources */,
 				808A352619E7380D00BE3950 /* DataFetcher.m in Sources */,
 				80F0A7D319E87BA100EBF39B /* Data.m in Sources */,
@@ -453,9 +482,12 @@
 			baseConfigurationReference = DFD0561C09EA58C30E448523 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Congstar Counter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -464,9 +496,12 @@
 			baseConfigurationReference = 3E495FBF1C1F124D7F8A0E57 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Congstar Counter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

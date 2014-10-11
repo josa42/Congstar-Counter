@@ -39,7 +39,7 @@ static NSString *databasePath = nil;
 
     NSMutableArray *all = [NSMutableArray array];
 
-    FMResultSet *result = [db executeQuery:@"SELECT * FROM data"];
+    FMResultSet *result = [db executeQuery:@"SELECT * FROM data ORDER BY ID DESC"];
     while ([result next]) {
         Data *data = [[Data alloc] init];
         data.ID = [result doubleForColumn:@"ID"];
@@ -96,7 +96,7 @@ static NSString *databasePath = nil;
     if (!ID) {
         query = @"INSERT INTO data (used, total, days_left, timestamp) VALUES(?, ?, ?, ?)";
     } else {
-        query = @"UPDATE data SET used = ?, total = ?, days_left = ?, timestamp = ? WHERE id = ?";
+        query = @"UPDATE data SET used = ?, total = ?, days_left = ?, timestamp = ? WHERE ID = ?";
     }
     success = [db executeUpdate:query,
                [NSNumber numberWithDouble:used],
@@ -111,6 +111,26 @@ static NSString *databasePath = nil;
 
     [db close];
 
+    return success;
+}
+
+- (BOOL) remove {
+    BOOL success = false;
+    FMDatabase *db = [Data database];
+    
+    if (!db) return NO;
+    
+    if (ID) {
+        NSString *query = @"DELETE FROM data WHERE ID = ?";
+        success = [db executeUpdate:query, [NSNumber numberWithInt:ID]];
+    }
+    
+    if (!success) {
+        NSLog(@"%d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db close];
+    
     return success;
 }
 
