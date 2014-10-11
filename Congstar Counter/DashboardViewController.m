@@ -31,17 +31,27 @@
 - (IBAction)reload:(id)sender {
     NSLog(@"Reload");
     [[DataFetcher instance] fetch];
+    [self update];
 }
 
 
 - (void) update {
 
     Data *data = [Data findLast];
-    float progress = 0;
 
-    if (data) {
-        progress = data.used / data.total;
-    }
+    if (!data) return;
+    
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setMaximumFractionDigits:1];
+    [formatter setRoundingMode: NSNumberFormatterRoundDown];
+    ;
+    
+    float progress = progress = data.used / data.total;
+    lastUpdateLabel.text = [NSString stringWithFormat:@"Last update: %@", data.time];
+    statusLabel.text = [NSString stringWithFormat:@"%@ MB / %@ MB",
+                        [formatter stringFromNumber:[NSNumber numberWithFloat:data.used]],
+                        [formatter stringFromNumber:[NSNumber numberWithFloat:data.total]]];
 
     NSLog(@"progress: %f / %f = %f", (float)data.used, (float)data.total, (data.used / data.total));
 
@@ -52,6 +62,8 @@
 
     [pieChartView setHidden:NO];
     [pieChartView setNeedsDisplay];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {

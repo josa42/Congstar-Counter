@@ -12,6 +12,8 @@
 @interface DashboardViewController : UIViewController {
     
     IBOutlet PieChartView* pieChartView;
+    IBOutlet UILabel *lastUpdateLabel;
+    IBOutlet UILabel *statusLabel;
 }
 
 

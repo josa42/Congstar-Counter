@@ -23,7 +23,7 @@ static NSString *databasePath = nil;
     FMDatabase *db = [Data database];
     if (!db) return NO;
 
-    if (![db executeUpdate:@"CREATE TABLE IF NOT EXISTS data (ID INTEGER PRIMARY KEY AUTOINCREMENT, used REAL, total REAL, days_left INTEGER, timestamp INTEGER)"]) {
+    if (![db executeUpdate:@"CREATE TABLE IF NOT EXISTS data (ID INTEGER PRIMARY KEY AUTOINCREMENT, used REAL, total REAL, days_left INTEGER, timestamp REAL)"]) {
         NSLog(@"%d: %@", [db lastErrorCode], [db lastErrorMessage]);
         return NO;
     }
@@ -87,23 +87,23 @@ static NSString *databasePath = nil;
     FMDatabase *db = [Data database];
 
     if (!db) return NO;
-
+    
+    
+    
+    NSLog(@"%f => %@", [time timeIntervalSince1970], time);
+    
+    NSString *query;
     if (!ID) {
-        success = [db executeUpdate:@"INSERT INTO data (used, total, days_left, timestamp) VALUES(?, ?, ?, ?)",
-                   [NSNumber numberWithDouble:used],
-                   [NSNumber numberWithDouble:total],
-                   [NSNumber numberWithInt:total],
-                   [NSNumber numberWithInt:daysLeft],
-                   [NSNumber numberWithDouble:[time timeIntervalSince1970]]];
+        query = @"INSERT INTO data (used, total, days_left, timestamp) VALUES(?, ?, ?, ?)";
     } else {
-        success = [db executeUpdate:@"UPDATE data SET used = ?, total = ?, days_left = ?, timestamp = ? WHERE id = ?",
-                    [NSNumber numberWithDouble:used],
-                    [NSNumber numberWithDouble:total],
-                    [NSNumber numberWithInt:total],
-                    [NSNumber numberWithInt:daysLeft],
-                    [NSNumber numberWithDouble:[time timeIntervalSince1970]],
-                    [NSNumber numberWithInt:ID]];
+        query = @"UPDATE data SET used = ?, total = ?, days_left = ?, timestamp = ? WHERE id = ?";
     }
+    success = [db executeUpdate:query,
+               [NSNumber numberWithDouble:used],
+               [NSNumber numberWithDouble:total],
+               [NSNumber numberWithInt:daysLeft],
+               [NSNumber numberWithDouble:[time timeIntervalSince1970]],
+               [NSNumber numberWithInt:ID]];
 
     if (!success) {
         NSLog(@"%d: %@", [db lastErrorCode], [db lastErrorMessage]);
