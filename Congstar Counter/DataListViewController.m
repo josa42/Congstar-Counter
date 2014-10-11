@@ -8,6 +8,8 @@
 
 #import "DataListViewController.h"
 #import "Data.h"
+#import "DataFetcher.h"
+
 
 @interface DataListViewController ()
 
@@ -26,6 +28,12 @@
     
     
     recipes = [Data findAll];
+}
+
+
+- (IBAction)reload:(id)sender {
+    NSLog(@"Reload");
+    [[DataFetcher instance] fetch];
 }
 
 - (void)didReceiveMemoryWarning {

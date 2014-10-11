@@ -10,6 +10,7 @@
 
 @interface DataListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+- (IBAction)reload:(id)sender;
 
 @end
 

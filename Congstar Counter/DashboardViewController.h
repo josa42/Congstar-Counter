@@ -16,6 +16,8 @@
 
 
 
+- (IBAction)reload:(id)sender;
+
 
 @end
 

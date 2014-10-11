@@ -8,6 +8,7 @@
 
 #import "DashboardViewController.h"
 #import "Data.h"
+#import "DataFetcher.h"
 
 @interface DashboardViewController ()
 
@@ -24,6 +25,12 @@
     [pieChartView setNeedsDisplay];
 
     [self update];
+}
+
+
+- (IBAction)reload:(id)sender {
+    NSLog(@"Reload");
+    [[DataFetcher instance] fetch];
 }
 
 

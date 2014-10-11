@@ -19,10 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    // Just for deveopment...
-    DataFetcher *dataFetcher = [DataFetcher instance];
-    [dataFetcher fetch];
-    
+    [DataFetcher instance];
     return YES;
 }
 
