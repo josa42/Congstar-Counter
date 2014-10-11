@@ -120,6 +120,8 @@ static NSString *databasePath = nil;
     
     if (!db) return NO;
     
+    NSLog(@"Delte: %d", ID);
+    
     if (ID) {
         NSString *query = @"DELETE FROM data WHERE ID = ?";
         success = [db executeUpdate:query, [NSNumber numberWithInt:ID]];

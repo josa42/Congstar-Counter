@@ -29,7 +29,7 @@
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [self update];
 }
 
@@ -42,10 +42,17 @@
 
 
 - (void) update {
+    
+    [pieChartView clearItems];
 
     Data *data = [Data findLast];
 
-    if (!data) return;
+
+    if (!data) {
+        lastUpdateLabel.text = @"";
+        statusLabel.text = @"";
+        return;
+    }
     
     Formatter *formatter = [Formatter instance];
     
@@ -55,7 +62,7 @@
                         [formatter megabytes:data.used],
                         [formatter megabytes:data.total]];
 
-    [pieChartView clearItems];
+
     [pieChartView addItemValue:1 - progress withColor:PieChartItemColorMake(1.0, 1.0, 1.0, 0.0)];
     [pieChartView addItemValue:progress withColor:PieChartItemColorMake(0.0, 0.0, 0.0, 0.6)];
     [pieChartView setHidden:NO];
